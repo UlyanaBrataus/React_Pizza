@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Categories() {
+function Categories({ value, onChangeCategory }) {
   const categories = [
     "Все",
     "Мясные",
@@ -10,23 +10,18 @@ function Categories() {
     "Закрытые",
   ];
 
-  const [activeIndex, setActiveIndex] = useState(0);
-  const onClickCategory = index => {
-    setActiveIndex(index);
-  };
-
   return (
     <div className="categories">
       <ul>
-        {categories.map((category, index) => (
+        {categories.map((categoryName, index) => (
           <li
             key={
               index
             } /* we can use index for rendering static lists, but not for dynamic. For dynamic lists we should use id */
-            onClick={() => onClickCategory(index)}
-            className={activeIndex === index ? "active" : ""}
+            onClick={() => onChangeCategory(index)}
+            className={value === index ? "active" : ""}
           >
-            {category}
+            {categoryName}
           </li>
         ))}
       </ul>
