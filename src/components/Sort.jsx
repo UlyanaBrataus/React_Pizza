@@ -1,9 +1,13 @@
 import { useState } from "react";
+import { Value } from "sass";
 
 function Sort({ sortValue, onChangeSort }) {
   const [open, setOpen] = useState(false);
-  const popList = ["популярности", "цене", "алфавиту"];
-  const sortName = popList[sortValue];
+  const popList = [
+    { name: "популярности", sortProperty: "rating" },
+    { name: "цене", sortProperty: "price" },
+    { name: "алфавиту", sortProperty: "title" },
+  ];
   console.log(sortValue);
 
   const handlePopupClick = index => {
@@ -28,19 +32,21 @@ function Sort({ sortValue, onChangeSort }) {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setOpen(!open)}>{sortName}</span>
+        <span onClick={() => setOpen(!open)}>{sortValue.name}</span>
       </div>
       {open && (
         <div className="sort__popup">
           <ul>
             {[
-              popList.map((name, index) => (
+              popList.map((obj, index) => (
                 <li
                   key={index}
-                  onClick={() => handlePopupClick(index)}
-                  className={sortValue === index ? "active" : ""}
+                  onClick={() => handlePopupClick(obj)}
+                  className={
+                    sortValue.sortProperty === obj.sortProperty ? "active" : ""
+                  }
                 >
-                  {name}
+                  {obj.name}
                 </li>
               )),
             ]}

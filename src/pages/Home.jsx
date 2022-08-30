@@ -9,7 +9,10 @@ const Home = () => {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [categoryId, setCategoryId] = useState(0);
-  const [sortType, setSortType] = useState(0);
+  const [sortType, setSortType] = useState({
+    name: "популярности",
+    sortProperty: "rating",
+  });
 
   console.log(categoryId, sortType);
   /* we put function into useEffect to prevent it's multiple rerenders */
@@ -33,7 +36,7 @@ const Home = () => {
           value={categoryId}
           onChangeCategory={i => setCategoryId(i)}
         />
-        <Sort sortValue={sortType} onChangeSort={index => setSortType(index)} />
+        <Sort sortValue={sortType} onChangeSort={i => setSortType(i)} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
